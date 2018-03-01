@@ -21,6 +21,6 @@ jobs:
       - docker ps
       - curl -I http://127.0.0.1:3000/api/users
     
-     - stage: Publish the image
+   - stage: Publish the image
       script: 
       - docker push "$DOCKER_IMAGE":"$TRAVIS_COMMIT"
