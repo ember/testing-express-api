@@ -16,13 +16,11 @@ jobs:
       - docker login --username "$DOCKER_USERNAME" --password "$DOCKER_PASSWORD"    
       - docker build --rm --tag "$DOCKER_IMAGE":"$TRAVIS_COMMIT" .
       - docker images
-    - stage: Run yarn tests
-      script: docker run --rm "$DOCKER_IMAGE":"$TRAVIS_COMMIT" yarn run test
-    - stage: Test HTTP response
-      script:
+      - docker run --rm "$DOCKER_IMAGE":"$TRAVIS_COMMIT" yarn run test
       - docker run --rm --detach --publish 127.0.0.1:3000:3000 "$DOCKER_IMAGE":"$TRAVIS_COMMIT"
       - docker ps
       - curl -I http://127.0.0.1:3000/api/users
-    - stage: Publish the image
+    
+     - stage: Publish the image
       script: 
       - docker push "$DOCKER_IMAGE":"$TRAVIS_COMMIT"
