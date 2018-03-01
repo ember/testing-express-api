@@ -14,8 +14,7 @@ docker run \
     --workdir /terraform \
     --volume $(pwd)/terraform:/terraform \
     -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
-    -e APP_VERSION=$TRAVIS_COMMIT \
-    chrisns/docker-terragrunt plan -out plan -var "api_version=$APP_VERSION"
+    chrisns/docker-terragrunt plan -out plan -var "api_version=$TRAVIS_COMMIT"
 
 docker run \
     --rm \
