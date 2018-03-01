@@ -11,7 +11,7 @@ env:
 
 jobs:
   include:
-    - stage: Build Docker image
+    - stage: build docker image
       script:
       - docker login --username "$DOCKER_USERNAME" --password "$DOCKER_PASSWORD"    
       - docker build --rm --tag "$DOCKER_IMAGE":"$TRAVIS_COMMIT" .
@@ -20,7 +20,5 @@ jobs:
       - docker run --rm --detach --publish 127.0.0.1:3000:3000 "$DOCKER_IMAGE":"$TRAVIS_COMMIT"
       - docker ps
       - curl -I http://127.0.0.1:3000/api/users
-    
-   - stage: Publish the image
-      script: 
-      - docker push "$DOCKER_IMAGE":"$TRAVIS_COMMIT"
+    - stage: publish
+      script: docker push "$DOCKER_IMAGE":"$TRAVIS_COMMIT"  
